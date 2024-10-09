@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [language, setLanguage] = useState('EN');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false); // Menu state for mobile
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleLanguage = (lang) => setLanguage(lang);
+  const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
   const linkStyle = "text-neutral-800 dark:text-neutral-100 transition duration-300";
 
   return (
-    <nav className="p-4 shadow backdrop-blur-md">
-      <div className="container mx-auto flex justify-between items-center">
-
+    <nav className="py-4 shadow backdrop-blur-md">
+      <div className="container mx-auto flex justify-between items-center pb-4">
+        
         {/* Left: Logo */}
         <div>
-          <img src="Logo/JustLogo.png" alt="" />
+          <img src="Logo/JustLogo.png" alt="Logo" />
         </div>
 
-        {/* Center: Links */}
+        {/* Center: Links for larger screens */}
         <div className="hidden md:flex space-x-6">
           <a href="/" className={`${linkStyle}`}>
             <motion.div
@@ -53,11 +55,8 @@ const Navbar = () => {
         <div className="relative flex space-x-4 items-center">
 
           {/* Language Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!isDropdownOpen)}
-              className="flex items-center"
-            >
+          <div className="relative hidden md:block">
+            <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="flex items-center">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#ffffff">
@@ -104,7 +103,7 @@ const Navbar = () => {
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
                   <div className="w-4 h-4">
-                    <img src="Images/tr.jpg" alt="eng" className="w-full h-full rounded-full"/>
+                    <img src="Images/tr.jpg" alt="tr" className="w-full h-full rounded-full"/>
                   </div>
                   <span className={linkStyle}>Turkish</span>
                 </label>
@@ -113,7 +112,7 @@ const Navbar = () => {
           </div>
 
           {/* Theme Dropdown */}
-          <div className="relative">
+          <div className="relative hidden md:block">
             <button
               onClick={() => setThemeDropdownOpen(!isThemeDropdownOpen)}
               className="flex items-center"
@@ -148,31 +147,78 @@ const Navbar = () => {
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
-                  <div className="w-4 h-4 bg-gradient-to-r from-neutral-600 via-neutral-950 to-amber-600 rounded-full shadow" />
                   <span className={linkStyle}>Dark Mode</span>
-                </label>
-                <label className="flex items-center space-x-3 mt-3">
-                  <input
-                    type="checkbox"
-                    checked={!darkMode}
-                    onChange={toggleDarkMode}
-                    className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
-                  />
-                  <div className="w-4 h-4 bg-gradient-to-r from-neutral-100 via-neutral-200 to-amber-600 rounded-full shadow" />
-                  <span className={linkStyle}>Light Mode</span>
                 </label>
               </div>
             </motion.div>
           </div>
+
+          {/* Menu button for small screens */}
+          <button onClick={toggleMenu} className="md:hidden">
+            <motion.div
+              animate={{ rotate: isMenuOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isMenuOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="none"
+                    stroke="#ffffff"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="m15 9l-6 6m6 0L9 9m-6.5 3c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="none"
+                    stroke="#ffffff"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12m9.492 0h.009m3.995 0h.009m-8.009 0h.009"
+                  />
+                </svg>
+              )}
+            </motion.div>
+          </button>
         </div>
       </div>
 
       {/* Responsive Links (for small screens) */}
-      <div className="md:hidden flex flex-col space-y-3 mt-3">
-        <a href="/" className={linkStyle}>Home Page</a>
-        <a href="/blog" className={linkStyle}>See All Blog</a>
-        <a href="/last-blog" className={linkStyle}>Last Blog</a>
-      </div>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden flex flex-col space-y-3 pt-5 pl-12 border-t border-neutral-800"
+          >
+            <a href="/" className={linkStyle}>
+              Home Page
+            </a>
+            <a href="/blog" className={linkStyle}>
+              See All Blog
+            </a>
+            <a href="/last-blog" className={linkStyle}>
+              Last Blog
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
