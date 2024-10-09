@@ -83,6 +83,7 @@ const Navbar = () => {
               className={`absolute left-0 mt-3 w-40 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800  dark:border rounded-md shadow-lg z-10 ${isDropdownOpen ? 'block' : 'hidden'}`}
             >
               <div className="px-4 py-3">
+
                 <label className="flex items-center space-x-3">
                   <input
                     type="checkbox"
@@ -95,6 +96,7 @@ const Navbar = () => {
                   </div>
                   <span className={linkStyle}>English</span>
                 </label>
+
                 <label className="flex items-center space-x-3 mt-3">
                   <input
                     type="checkbox"
@@ -107,6 +109,7 @@ const Navbar = () => {
                   </div>
                   <span className={linkStyle}>Turkish</span>
                 </label>
+
               </div>
             </motion.div>
           </div>
@@ -140,16 +143,29 @@ const Navbar = () => {
               className={`absolute left-0 mt-3 w-52 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800  dark:border rounded-md shadow-lg z-10 ${isThemeDropdownOpen ? 'block' : 'hidden'}`}
             >
               <div className="px-4 py-3">
-                <label className="flex items-center space-x-3">
+                <label className="flex items-center space-x-3 pb-2">
                   <input
                     type="checkbox"
                     checked={darkMode}
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
+                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-800 via-neutral-700 to-amber-600"/>
                   <span className={linkStyle}>Dark Mode</span>
                 </label>
+
+                <label className="flex items-center space-x-3">
+                  <input
+                    type="checkbox"
+                    checked={!darkMode}
+                    onChange={toggleDarkMode}
+                    className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
+                  />
+                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-amber-600"/>
+                  <span className={linkStyle}>Light Mode</span>
+                </label>
               </div>
+              
             </motion.div>
           </div>
 
