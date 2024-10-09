@@ -28,7 +28,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.01, y: -3 }}
               className="cursor-pointer"
             >
-              Home Page Page
+              Home Page
             </motion.div>
           </a>
           <a href="/blog" className={`${linkStyle}`}>
