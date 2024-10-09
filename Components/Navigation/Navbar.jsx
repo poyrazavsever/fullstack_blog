@@ -138,7 +138,7 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: isThemeDropdownOpen ? 1 : 0, y: isThemeDropdownOpen ? 0 : -10 }}
               transition={{ duration: 0.3 }}
-              className={`absolute right-0 mt-3 w-40 bg-white dark:bg-neutral-700 rounded-md shadow-lg z-10 ${isThemeDropdownOpen ? 'block' : 'hidden'}`}
+              className={`absolute left-0 mt-3 w-52 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800  dark:border rounded-md shadow-lg z-10 ${isThemeDropdownOpen ? 'block' : 'hidden'}`}
             >
               <div className="px-4 py-3">
                 <label className="flex items-center space-x-3">
@@ -148,6 +148,7 @@ const Navbar = () => {
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
+                  <div className="w-4 h-4 bg-gradient-to-r from-neutral-600 via-neutral-950 to-amber-600 rounded-full shadow" />
                   <span className={linkStyle}>Dark Mode</span>
                 </label>
                 <label className="flex items-center space-x-3 mt-3">
@@ -157,6 +158,7 @@ const Navbar = () => {
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
+                  <div className="w-4 h-4 bg-gradient-to-r from-neutral-100 via-neutral-200 to-amber-600 rounded-full shadow" />
                   <span className={linkStyle}>Light Mode</span>
                 </label>
               </div>
