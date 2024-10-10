@@ -3,7 +3,7 @@ import React from "react";
 
 const Blog = () => {
   const categoryBtn =
-    "text-neutral-800 dark:text-neutral-200 font-semibold uppercase";
+    "text-neutral-800 dark:text-neutral-200 font-semibold uppercase transition-all duration-300 ease-in-out hover:text-neutral-600 dark:hover:text-neutral-400 hover:underline hover:underline-offset-4 hover:scale-105";
 
   return (
     <div className="container mx-auto mt-16 flex items-start justify-between">
