@@ -11,7 +11,8 @@ const Layout = ({ children }) => {
       <Toaster
         toastOptions={{
           style: {
-            background: 'rgba(255, 165, 0, 0.8)', // Turuncu arka plan
+            background: 'rgba(20, 20, 20, 0.8)', // Turuncu arka plan
+            border:'1px #222222 solid', // Border
             color: '#ffffff', // Yazı rengi
             backdropFilter: 'blur(10px)', // Arka plan bulanıklığı
             borderRadius: '8px', // Kenar yuvarlama
