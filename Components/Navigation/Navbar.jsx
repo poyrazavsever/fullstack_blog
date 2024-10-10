@@ -218,10 +218,10 @@ const Navbar = () => {
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-full absolute md:hidden flex flex-col space-y-3 pt-5 pl-12 bg-bg_light dark:bg-bg_dark border-t border-neutral-800"
+            className="w-full absolute md:hidden flex flex-col space-y-3 py-5 pl-12 bg-bg_light dark:bg-bg_dark border-t bg-opacity-90 border-neutral-800"
           >
             <a href="/" className={linkStyle}>
               Home Page
