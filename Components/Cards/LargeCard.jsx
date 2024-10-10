@@ -2,7 +2,7 @@ import React from 'react';
 
 const LargeCard = () => {
   return (
-    <div className="relative max-w-sm mx-auto p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg shadow-lg">
+    <div className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg shadow-lg">
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
