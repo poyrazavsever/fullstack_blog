@@ -2,12 +2,12 @@ import React from 'react'
 
 const SmallCard = () => {
     return (
-        <a href={`/blog/1`}>
+        <a href={`/blog/1`} className='-z-10'>
 
             {/* Framer Motion'ı kullanarak hover animasyonu */}
-            <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg'>
+            <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg '>
 
-                <div className='py-4 px-6 flex flex-col items-start gap-3 relative z-10 group'>
+                <div className='py-4 px-6 flex flex-col items-start gap-3 relative group'>
 
                     <div className='flex flex-col items-start gap-2'>
                         <div className='w-full flex items-center gap-8 transition-all duration-300 text-neutral-400 '>

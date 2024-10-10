@@ -187,18 +187,37 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden"
+            className="py-6 w-full md:hidden absolute dark:bg-bg_dark !z-50"
           >
-            <div className="flex flex-col items-center">
-              <a href="/" className={linkStyle}>
-                Home Page
+            <div className="flex flex-col items-start">
+
+              <a href="/" className="flex items-center gap-2 w-full p-4 border-t border-neutral-700 hover:bg-neutral-950 transition-all duration-150">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#ffffff"><path d="m9 22l-.251-3.509a3.259 3.259 0 1 1 6.501 0L15 22" /><path d="M2.352 13.214c-.354-2.298-.53-3.446-.096-4.465s1.398-1.715 3.325-3.108L7.021 4.6C9.418 2.867 10.617 2 12.001 2c1.382 0 2.58.867 4.978 2.6l1.44 1.041c1.927 1.393 2.89 2.09 3.325 3.108c.434 1.019.258 2.167-.095 4.464l-.301 1.96c-.5 3.256-.751 4.884-1.919 5.856S16.554 22 13.14 22h-2.28c-3.415 0-5.122 0-6.29-.971c-1.168-.972-1.418-2.6-1.918-5.857z" /></g></svg>
+                </span>
+                <span className='text-lg text-neutral-100'>
+                  Home Page
+                </span>
               </a>
-              <a href="/blog" className={linkStyle}>
-                See All Blog
+
+              <a href="/blog" className="flex items-center gap-2 w-full p-4 border-t border-neutral-700 hover:bg-neutral-950 transition-all duration-150">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M22 18c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.092C20.1 22 19.4 22 18 22s-2.1 0-2.635-.273a2.5 2.5 0 0 1-1.092-1.092C14 20.1 14 19.4 14 18s0-2.1.273-2.635a2.5 2.5 0 0 1 1.092-1.092C15.9 14 16.6 14 18 14s2.1 0 2.635.273a2.5 2.5 0 0 1 1.092 1.092C22 15.9 22 16.6 22 18m0-8c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.092C20.1 14 19.4 14 18 14s-2.1 0-2.635-.273a2.5 2.5 0 0 1-1.092-1.092C14 12.1 14 11.4 14 10s0-2.1.273-2.635a2.5 2.5 0 0 1 1.092-1.093C15.9 6 16.6 6 18 6s2.1 0 2.635.272a2.5 2.5 0 0 1 1.092 1.093C22 7.9 22 8.6 22 10m-8 8c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.092C12.1 22 11.4 22 10 22s-2.1 0-2.635-.273a2.5 2.5 0 0 1-1.093-1.092C6 20.1 6 19.4 6 18s0-2.1.272-2.635a2.5 2.5 0 0 1 1.093-1.092C7.9 14 8.6 14 10 14s2.1 0 2.635.273a2.5 2.5 0 0 1 1.092 1.092C14 15.9 14 16.6 14 18M10 6c0 1.4 0 2.1-.272 2.635a2.5 2.5 0 0 1-1.093 1.093C8.1 10 7.4 10 6 10s-2.1 0-2.635-.272a2.5 2.5 0 0 1-1.093-1.093C2 8.1 2 7.4 2 6s0-2.1.272-2.635a2.5 2.5 0 0 1 1.093-1.093C3.9 2 4.6 2 6 2s2.1 0 2.635.272a2.5 2.5 0 0 1 1.093 1.093C10 3.9 10 4.6 10 6" color="#ffffff" /></svg>
+                </span>
+                <span className='text-lg text-neutral-100'>
+                  See All Blog
+                </span>
               </a>
-              <a href="/last-blog" className={linkStyle}>
-                Last Blog
+
+              <a href="/last-blog" className="flex items-center gap-2 w-full p-4 border-y border-neutral-700 hover:bg-neutral-950 transition-all duration-150">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#ffffff"><path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" /><path d="M16 10.833L13.886 8.79C12.996 7.93 12.552 7.5 12 7.5s-.997.43-1.886 1.29L8 10.832m8 5.667l-2.114-2.044c-.89-.86-1.334-1.29-1.886-1.29s-.997.43-1.886 1.29L8 16.5" /></g></svg>
+                </span>
+                <span className='text-lg text-neutral-100'>
+                  Last Blog
+                </span>
               </a>
+
             </div>
           </motion.div>
         )}
