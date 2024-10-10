@@ -6,7 +6,7 @@ const Navbar = () => {
   const [language, setLanguage] = useState('EN');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
-  const [isMenuOpen, setMenuOpen] = useState(false); // Menu state for mobile
+  const [isMenuOpen, setMenuOpen] = useState(false); // Menü durumu küçük ekranlar için
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleLanguage = (lang) => setLanguage(lang);
@@ -17,15 +17,15 @@ const Navbar = () => {
   return (
     <nav className="py-4 shadow backdrop-blur-md">
       <div className="container mx-auto flex justify-between items-center pb-4">
-        
-        {/* Left: Logo */}
+
+        {/* Sol: Logo */}
         <div>
-          <img src="Logo/JustLogo.png" alt="Logo" />
+          <img src="/Logo/JustLogo.png" alt="Logo" />
         </div>
 
-        {/* Center: Links for larger screens */}
+        {/* Orta: Büyük ekranlar için bağlantılar */}
         <div className="hidden md:flex space-x-6">
-          <a href="/" className={`${linkStyle}`}>
+          <a href="/" className={linkStyle}>
             <motion.div
               whileHover={{ scale: 1.01, y: -3 }}
               className="cursor-pointer"
@@ -33,7 +33,7 @@ const Navbar = () => {
               Home Page
             </motion.div>
           </a>
-          <a href="/blog" className={`${linkStyle}`}>
+          <a href="/blog" className={linkStyle}>
             <motion.div
               whileHover={{ scale: 1.01, y: -3 }}
               className="cursor-pointer"
@@ -41,7 +41,7 @@ const Navbar = () => {
               See All Blog
             </motion.div>
           </a>
-          <a href="/last-blog" className={`${linkStyle}`}>
+          <a href="/last-blog" className={linkStyle}>
             <motion.div
               whileHover={{ scale: 1.01, y: -3 }}
               className="cursor-pointer"
@@ -51,15 +51,15 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Right: Language and Theme Dropdowns */}
+        {/* Sağ: Dil ve Tema Düşürme Menüsü */}
         <div className="relative flex space-x-4 items-center">
 
-          {/* Language Dropdown */}
+          {/* Dil Düşürme Menüsü */}
           <div className="relative hidden md:block">
             <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="flex items-center">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#ffffff">
+                  <g fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" color="#ffffff">
                     <path d="M7 8.38h4.5m5.5 0h-3.5m-3 0h3m-3 0V7m3 1.38c-.527 1.886-1.632 3.669-3.893 5.236M8.393 17c1.019-.937 2.17-3.087 3.214-3.384m0 0c-.643-.754-1.543-1.973-1.8-3.525m1.8 2.525l1.929 2.005" />
                     <path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" />
                   </g>
@@ -71,7 +71,7 @@ const Navbar = () => {
                 transition={{ duration: 0.3 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                  <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9s-4.419 6-6 6s-6-6-6-6" color="#ffffff" />
+                  <path fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18 9s-4.419 6-6 6s-6-6-6-6" color="#ffffff" />
                 </svg>
               </motion.span>
             </button>
@@ -80,10 +80,9 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: isDropdownOpen ? 1 : 0, y: isDropdownOpen ? 0 : -10 }}
               transition={{ duration: 0.3 }}
-              className={`absolute left-0 mt-3 w-40 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800  dark:border rounded-md shadow-lg z-10 ${isDropdownOpen ? 'block' : 'hidden'}`}
+              className={`absolute left-0 mt-3 w-40 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800 rounded-md shadow-lg z-10 ${isDropdownOpen ? 'block' : 'hidden'}`}
             >
               <div className="px-4 py-3">
-
                 <label className="flex items-center space-x-3">
                   <input
                     type="checkbox"
@@ -92,7 +91,7 @@ const Navbar = () => {
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
                   <div className="w-4 h-4">
-                    <img src="Images/eng.jpg" alt="eng" className="w-full h-full rounded-full"/>
+                    <img src="/Images/eng.jpg" alt="eng" className="w-full h-full rounded-full" />
                   </div>
                   <span className={linkStyle}>English</span>
                 </label>
@@ -105,7 +104,7 @@ const Navbar = () => {
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
                   <div className="w-4 h-4">
-                    <img src="Images/tr.jpg" alt="tr" className="w-full h-full rounded-full"/>
+                    <img src="/Images/tr.jpg" alt="tr" className="w-full h-full rounded-full" />
                   </div>
                   <span className={linkStyle}>Turkish</span>
                 </label>
@@ -114,7 +113,7 @@ const Navbar = () => {
             </motion.div>
           </div>
 
-          {/* Theme Dropdown */}
+          {/* Tema Düşürme Menüsü */}
           <div className="relative hidden md:block">
             <button
               onClick={() => setThemeDropdownOpen(!isThemeDropdownOpen)}
@@ -122,7 +121,7 @@ const Navbar = () => {
             >
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 12a5 5 0 1 1-10 0a5 5 0 0 1 10 0M12 2v1.5m0 17V22m7.07-3.929l-1.06-1.06M5.99 5.989L4.928 4.93M22 12h-1.5m-17 0H2m17.071-7.071l-1.06 1.06M5.99 18.011l-1.06 1.06" color="#ffffff" />
+                  <path fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 12a5 5 0 1 1-10 0a5 5 0 0 1 10 0M12 2v1.5m0 17V22m7.07-3.929l-1.06-1.06M5.99 5.989L4.928 4.93M22 12h-1.5m-17 0H2m17.071-7.071l-1.06 1.06M5.99 18.011l-1.06 1.06" color="#ffffff" />
                 </svg>
               </span>
 
@@ -131,7 +130,7 @@ const Navbar = () => {
                 transition={{ duration: 0.3 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                  <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9s-4.419 6-6 6s-6-6-6-6" color="#ffffff" />
+                  <path fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M18 9s-4.419 6-6 6s-6-6-6-6" color="#ffffff" />
                 </svg>
               </motion.span>
             </button>
@@ -140,7 +139,7 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: isThemeDropdownOpen ? 1 : 0, y: isThemeDropdownOpen ? 0 : -10 }}
               transition={{ duration: 0.3 }}
-              className={`absolute left-0 mt-3 w-52 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800  dark:border rounded-md shadow-lg z-10 ${isThemeDropdownOpen ? 'block' : 'hidden'}`}
+              className={`absolute left-0 mt-3 w-52 border bg-neutral-200 border-neutral-400 dark:bg-neutral-900 bg-opacity-10 dark:border-neutral-800 rounded-md shadow-lg z-10 ${isThemeDropdownOpen ? 'block' : 'hidden'}`}
             >
               <div className="px-4 py-3">
                 <label className="flex items-center space-x-3 pb-2">
@@ -150,7 +149,7 @@ const Navbar = () => {
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
-                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-800 via-neutral-700 to-amber-600"/>
+                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-800 via-neutral-700 to-amber-600" />
                   <span className={linkStyle}>Dark Mode</span>
                 </label>
 
@@ -161,77 +160,46 @@ const Navbar = () => {
                     onChange={toggleDarkMode}
                     className="w-4 h-4 p-2 accent-black border-gray-800 rounded-lg focus:ring-neutral-800 focus:ring-2"
                   />
-                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-amber-600"/>
+                  <div className="w-4 h-4 rounded-full bg-gradient-to-r from-neutral-200 via-neutral-100 to-amber-600" />
                   <span className={linkStyle}>Light Mode</span>
                 </label>
               </div>
-              
             </motion.div>
           </div>
+        </div>
 
-          {/* Menu button for small screens */}
-          <button onClick={toggleMenu} className="md:hidden">
-            <motion.div
-              animate={{ rotate: isMenuOpen ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isMenuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="none"
-                    stroke="#ffffff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="m15 9l-6 6m6 0L9 9m-6.5 3c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="none"
-                    stroke="#ffffff"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.5"
-                    d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12m9.492 0h.009m3.995 0h.009m-8.009 0h.009"
-                  />
-                </svg>
-              )}
-            </motion.div>
+        {/* Küçük ekranlar için menü ikonu */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <g fill="none" stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5">
+                <path d="M2 5h20M2 12h20M2 19h20" />
+              </g>
+            </svg>
           </button>
         </div>
       </div>
 
-      {/* Responsive Links (for small screens) */}
+      {/* Küçük ekranlar için açılır menü */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full absolute md:hidden flex flex-col space-y-3 py-5 pl-12 bg-bg_light dark:bg-bg_dark border-t bg-opacity-90 border-neutral-800"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden"
           >
-            <a href="/" className={linkStyle}>
-              Home Page
-            </a>
-            <a href="/blog" className={linkStyle}>
-              See All Blog
-            </a>
-            <a href="/last-blog" className={linkStyle}>
-              Last Blog
-            </a>
+            <div className="flex flex-col items-center">
+              <a href="/" className={linkStyle}>
+                Home Page
+              </a>
+              <a href="/blog" className={linkStyle}>
+                See All Blog
+              </a>
+              <a href="/last-blog" className={linkStyle}>
+                Last Blog
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
