@@ -187,7 +187,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="py-6 w-full md:hidden absolute dark:bg-bg_dark !z-50"
+            className="py-6 w-full md:hidden absolute dark:bg-bg_dark"
           >
             <div className="flex flex-col items-start">
 

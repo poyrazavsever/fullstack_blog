@@ -2,7 +2,7 @@ import React from 'react'
 
 const SmallCard = () => {
     return (
-        <a href={`/blog/1`} className='-z-10'>
+        <a href={`/blog/1`}>
 
             {/* Framer Motion'ı kullanarak hover animasyonu */}
             <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg '>
