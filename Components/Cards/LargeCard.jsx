@@ -2,7 +2,7 @@ import React from 'react';
 
 const LargeCard = () => {
   return (
-    <div className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg shadow-lg">
+    <a href='/blog/1' className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg shadow-lg">
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
@@ -29,7 +29,7 @@ const LargeCard = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 7L6 18m5-11.868s5.634-.475 6.488.38c.855.854.38 6.488.38 6.488" color="#ffffff" /></svg>
         </span>
       </button>
-    </div>
+    </a>
   );
 };
 
