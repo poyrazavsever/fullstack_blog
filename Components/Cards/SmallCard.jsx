@@ -5,7 +5,7 @@ const SmallCard = () => {
         <a href={`/`} target='_blank'>
 
             {/* Framer Motion'ı kullanarak hover animasyonu */}
-            <div className='group relative w-10/12 md:w-full border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg'>
+            <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg'>
 
                 <div className='py-4 px-6 flex flex-col items-start gap-3 relative z-10 group'>
 
@@ -28,6 +28,7 @@ const SmallCard = () => {
                     <span className='text-neutral-500 text-[10px] md:text-sm px-2 py-1 border border-neutral-800'>Software</span>
 
                 </div>
+                
             </div>
         </a>)
 }
