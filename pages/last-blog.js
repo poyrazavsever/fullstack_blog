@@ -1,6 +1,5 @@
 import React from "react";
 import LargeCard from "@/Components/Cards/LargeCard";
-import SmallCard from "@/Components/Cards/SmallCard";
 
 function LastBlog() {
   return (
