@@ -42,26 +42,28 @@ const UserModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Kapatma Butonu */}
-            <button
-              className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
-              onClick={onClose}
-            >
-              ✕
-            </button>
 
-            <div className="flex justify-center mb-4">
+            <div className="flex items-center justify-between mb-4 gap-8">
+              <div className='flex w-full'>
+                <button
+                  className={`p-2 rounded-l w-full ${isLogin ? 'bg-orange-500 text-white' : 'bg-neutral-200 text-black'}`}
+                  onClick={() => setIsLogin(true)}
+                >
+                  Giriş Yap
+                </button>
+                <button
+                  className={`p-2 rounded-r w-full ${!isLogin ? 'bg-orange-500 text-white' : 'bg-neutral-200 text-black'}`}
+                  onClick={() => setIsLogin(false)}
+                >
+                  Kayıt Ol
+                </button>
+              </div>
+
               <button
-                className={`p-2 rounded-l w-full ${isLogin ? 'bg-orange-500 text-white' : 'bg-neutral-200 text-black'}`}
-                onClick={() => setIsLogin(true)}
+                className="p-2 text-xs text-red-500 rounded-full hover:text-red-600 transition"
+                onClick={onClose}
               >
-                Giriş Yap
-              </button>
-              <button
-                className={`p-2 rounded-r w-full ${!isLogin ? 'bg-orange-500 text-white' : 'bg-neutral-200 text-black'}`}
-                onClick={() => setIsLogin(false)}
-              >
-                Kayıt Ol
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15.75 15l-6-6m0 6l6-6m7 3c0-5.523-4.477-10-10-10s-10 4.477-10 10s4.477 10 10 10s10-4.477 10-10" color="currentColor" /></svg>
               </button>
             </div>
 
