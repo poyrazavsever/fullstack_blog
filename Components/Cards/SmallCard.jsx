@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SmallCard = () => {
+const SmallCard = ({title}) => {
     return (
         <a href={`/blog/1`}>
 
@@ -12,7 +12,7 @@ const SmallCard = () => {
                     <div className='flex flex-col items-start gap-2'>
                         <div className='w-full flex items-center gap-8 transition-all duration-300 text-neutral-400 '>
 
-                            <h4 className='text-sm md:text-xl font-medium text-neutral-300 line-clamp-1 tracking-wide'>Lorem, ipsum dolor.</h4>
+                            <h4 className='text-sm md:text-xl font-medium text-neutral-300 line-clamp-1 tracking-wide'>{title}</h4>
 
                             <span className="group-hover:translate-x-2 transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 7L6 18m5-11.868s5.634-.475 6.488.38c.855.854.38 6.488.38 6.488" color="#ffffff" /></svg>
