@@ -2,9 +2,7 @@ import React, { useState } from "react";
 
 // Sekme içerikleri için dummy bileşenler
 import CreatePost from "@/Components/Admin/CreatePost";
-const CreateCategory = () => <div>Create a new category here</div>;
-const Posts = () => <div>List of all posts</div>;
-const Categories = () => <div>List of all categories</div>;
+import CreateCategory from "@/Components/Admin/CreateCategory";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("Create Post"); // Varsayılan olarak "Create Post" sekmesi
