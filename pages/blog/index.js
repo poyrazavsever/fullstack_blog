@@ -1,4 +1,5 @@
 import SmallCard from "@/Components/Cards/SmallCard";
+import CommentsModal from "@/Components/CommentsModal";
 import React from "react";
 
 const Blog = () => {
@@ -30,6 +31,8 @@ const Blog = () => {
           <button className={categoryBtn}>UI/UX Trends</button>
         </div>
       </div>
+
+      <CommentsModal />
     </div>
   );
 };
