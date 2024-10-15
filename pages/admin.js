@@ -15,10 +15,6 @@ const Admin = () => {
         return <CreatePost />;
       case "Create Category":
         return <CreateCategory />;
-      case "Posts":
-        return <Posts />;
-      case "Categories":
-        return <Categories />;
       default:
         return null;
     }
@@ -50,22 +46,6 @@ const Admin = () => {
           onClick={() => setActiveTab("Create Category")}
         >
           Create Category
-        </div>
-        <div
-          className={`${tabClass} ${
-            activeTab === "Posts" ? activeTabClass : ""
-          }`}
-          onClick={() => setActiveTab("Posts")}
-        >
-          Posts
-        </div>
-        <div
-          className={`${tabClass} ${
-            activeTab === "Categories" ? activeTabClass : ""
-          }`}
-          onClick={() => setActiveTab("Categories")}
-        >
-          Categories
         </div>
       </div>
 
