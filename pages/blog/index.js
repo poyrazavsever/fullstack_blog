@@ -1,5 +1,4 @@
 import SmallCard from "@/Components/Cards/SmallCard";
-import CommentsModal from "@/Components/CommentsModal";
 import React from "react";
 
 const Blog = () => {
@@ -32,7 +31,7 @@ const Blog = () => {
         </div>
       </div>
 
-      <CommentsModal />
+      
     </div>
   );
 };

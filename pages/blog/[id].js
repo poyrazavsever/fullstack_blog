@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import CommentsModal from "@/Components/CommentsModal";
 
 const BlogDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
+  const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false); // Yorum modalı durumu
 
   const handleLikeClick = () => {
     // Kalbe tıklama işlemi
@@ -63,7 +65,7 @@ const BlogDetail = () => {
               >
                 <path
                   fill="none"
-                  stroke={isLiked? "#fa9141" : "#ffffff"}
+                  stroke={isLiked ? "#fa9141" : "#ffffff"}
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="1.5"
@@ -74,7 +76,7 @@ const BlogDetail = () => {
               <span className="text-neutral-300">29</span>
             </motion.button>
 
-            <button className="flex items-center gap-2">
+            <button className="flex items-center gap-2" onClick={() => setIsCommentsModalOpen(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -132,6 +134,9 @@ const BlogDetail = () => {
           debitis sit quidem molestias odio cupiditate maiores.
         </p>
       </div>
+
+      {/* Yorum modalını açma durumu */}
+      {isCommentsModalOpen && <CommentsModal onClose={() => setIsCommentsModalOpen(false)} />}
     </div>
   );
 };
