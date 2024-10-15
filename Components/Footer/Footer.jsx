@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className="w-full flex flex-col items-center justify-center py-12 gap-3">
+    <div className="w-full flex flex-col items-center justify-center pt-48 pb-12 gap-3">
       <p className="text-lg font-medium text-neutral-900 dark:text-neutral-200">Created By <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r dark:from-neutral-200 dark:to-amber-700 from-stone-800 to-amber-700">Poyraz Avsever</span></p>
       <div className="flex gap-3">
         <a href="https://www.instagram.com/pavori_/" target="__blank" className="hover:rotate-[360deg] transition-all duration-700">
