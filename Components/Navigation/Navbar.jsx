@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar = () => {
+const Navbar = ({openModal}) => {
   const [darkMode, setDarkMode] = useState(false);
   const [language, setLanguage] = useState('EN');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -49,6 +49,15 @@ const Navbar = () => {
               Last Blog
             </motion.div>
           </a>
+
+          <button onClick={openModal} className={linkStyle}>
+            <motion.div
+              whileHover={{ scale: 1.01, y: -3 }}
+              className="cursor-pointer"
+            >
+              Login
+            </motion.div>
+          </button>
         </div>
 
         {/* Sağ: Dil ve Tema Düşürme Menüsü */}
@@ -217,6 +226,15 @@ const Navbar = () => {
                   Last Blog
                 </span>
               </a>
+
+              <button onClick={openModal} className="flex items-center gap-2 w-full p-4 border-y border-neutral-700 hover:bg-neutral-950 transition-all duration-150">
+                <span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#ffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#fffff"><path d="M14 3.095A10 10 0 0 0 12.6 3C7.298 3 3 7.03 3 12s4.298 9 9.6 9q.714 0 1.4-.095" /><path d="M13.5 14.5c-.506-.492-2.5-1.8-2.5-2.5m2.5-2.5c-.506.492-2.5 1.8-2.5 2.5m0 0h10" /></g></svg>
+                </span>
+                <span className='text-lg text-neutral-100'>
+                  Login
+                </span>
+              </button>
 
             </div>
           </motion.div>

@@ -1,18 +1,32 @@
-import React from 'react'
+import { useState } from "react";
 import Navbar from '../Navigation/Navbar'
 import Footer from '../Footer/Footer'
 import { Toaster } from 'react-hot-toast'
+import UserModal from '../UserModal'
 
 const Layout = ({ children }) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Modal'ı açma fonksiyonu
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Modal'ı kapatma fonksiyonu
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar openModal={openModal} />
 
       <Toaster
         toastOptions={{
           style: {
             background: 'rgba(20, 20, 20, 0.8)', // Turuncu arka plan
-            border:'1px #222222 solid', // Border
+            border: '1px #222222 solid', // Border
             color: '#ffffff', // Yazı rengi
             backdropFilter: 'blur(10px)', // Arka plan bulanıklığı
             borderRadius: '8px', // Kenar yuvarlama
@@ -21,6 +35,8 @@ const Layout = ({ children }) => {
           duration: 4000, // Toast süresi
         }}
       />
+
+      <UserModal isOpen={isModalOpen} onClose={closeModal} />
 
       {children}
 
