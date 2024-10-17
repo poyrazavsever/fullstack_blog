@@ -29,7 +29,7 @@ const UserModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-neutral-950 bg-opacity-80"
+          className="fixed inset-0 flex items-center justify-center bg-neutral-950 bg-opacity-80 z-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
