@@ -26,15 +26,13 @@ function LastBlog() {
           My Last Blog Post
         </h1>
 
-        <div className="w-full">
-          {currentPost && (
-            <LargeCard
-              imageHref={currentPost.bannerImage} // Görsel URL'si
-              title={currentPost.title} // Başlık
-              content={currentPost.content} // İçerik
-            />
-          )}
-        </div>
+        {currentPost && (
+          <LargeCard
+            imageHref={currentPost.bannerImage} // Görsel URL'si
+            title={currentPost.title} // Başlık
+            content={currentPost.content} // İçerik
+          />
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 mt-12">
