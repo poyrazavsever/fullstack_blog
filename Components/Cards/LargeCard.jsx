@@ -1,12 +1,14 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw'; // HTML desteği için
 
-const LargeCard = ({imageHref, title, content }) => {
+const LargeCard = ({ imageHref, title, content }) => {
   return (
     <a href='/blog/1' className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 backdrop-blur-lg shadow-lg w-full">
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
-          src={imageHref} // Kendi resim dosya yolunuzu buraya ekleyin
+          src={imageHref} 
           alt="Card Visual"
           className="object-cover w-full h-full"
         />
@@ -17,10 +19,10 @@ const LargeCard = ({imageHref, title, content }) => {
         {title}
       </h3>
 
-      {/* İçerik */}
-      <p className="mt-2 text-sm text-neutral-900 dark:text-neutral-300">
+      {/* İçerik - Markdown ve HTML desteği */}
+      <ReactMarkdown rehypePlugins={[rehypeRaw]} className="mt-2 text-sm text-neutral-900 dark:text-neutral-300">
         {content}
-      </p>
+      </ReactMarkdown>
 
       {/* Buton */}
       <button className="w-full mt-4 px-4 py-2 bg-transparent border border-neutral-500 text-neutral-900 dark:text-white rounded-lg hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center gap-2 hover:gap-3">
