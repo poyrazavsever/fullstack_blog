@@ -1,7 +1,7 @@
 import SmallCard from "@/Components/Cards/SmallCard";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "@/features/post/postSlice";
+import {fetchPosts} from "../../features/post/thunks/fetchPosts"
 import { motion } from "framer-motion";
 
 const Blog = () => {
