@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createCategory } from '@/features/category/thunk/createCategory';
+import toast from 'react-hot-toast';
 
 const CreateCategory = () => {
+  const dispatch = useDispatch();
   const [categoryName, setCategoryName] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const categoryData = {
       name: categoryName,
     };
 
-    console.log('Category Data:', categoryData);
-    // Burada kategori verilerini backend'e gönder (API isteği)
+    try {
+      await dispatch(createCategory(categoryData)).unwrap(); // Thunk'ı çağır
+      toast.success('Category created successfully!'); // Başarılı bildirim
+      setCategoryName(''); // Formu temizle
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to create category.'); // Hata bildirimi
+    }
   };
 
   return (
