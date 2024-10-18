@@ -57,7 +57,10 @@ const BlogDetail = () => {
     <div className="container mx-auto mt-8">
       <div className="flex flex-col md:flex-row items-start gap-8">
         <img
-          src={currentPost.imageHref || "/Images/photobg.png"}
+          src={
+            `http://localhost:5000/${currentPost.bannerImage}` ||
+            "/Images/photobg.png"
+          }
           alt="blogPostBanner"
           className="w-full md:w-1/2 rounded-lg shadow"
         />
@@ -158,10 +161,7 @@ const BlogDetail = () => {
       </div>
 
       <div className="pt-8 text-neutral-200">
-        <ReactMarkdown
-          rehypePlugins={[rehypeRaw]}
-          className="react-markdown"
-        >
+        <ReactMarkdown rehypePlugins={[rehypeRaw]} className="react-markdown">
           {currentPost.content}
         </ReactMarkdown>
       </div>

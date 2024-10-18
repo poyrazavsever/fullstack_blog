@@ -8,7 +8,7 @@ const LargeCard = ({ imageHref, title, content, id }) => {
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
-          src={imageHref} 
+          src={`http://localhost:5000/${imageHref}`} 
           alt="Card Visual"
           className="object-cover w-full h-full"
         />
