@@ -62,7 +62,7 @@ const Blog = () => {
           >
             {/* O anki sayfadaki postları render ediyoruz */}
             {currentPosts.map((post) => (
-              <SmallCard key={post._id} title={post.title} content={post.content} />
+              <SmallCard key={post._id} title={post.title} content={post.content} id={post._id}/>
             ))}
           </motion.div>
         )}

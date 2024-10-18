@@ -120,11 +120,13 @@ export default function Home() {
                 title={recentPosts[0].title}
                 content={recentPosts[0].content}
                 imageHref={recentPosts[0].bannerImage}
+                id={recentPosts[0]._id}
               />
             )}
             {recentPosts.length > 1 && (
               <SmallCard
                 title={recentPosts[1].title}
+                id={recentPosts[1]._id}
                 content={recentPosts[1].content}
               />
             )}

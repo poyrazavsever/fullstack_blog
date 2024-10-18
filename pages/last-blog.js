@@ -31,6 +31,7 @@ function LastBlog() {
             imageHref={currentPost.bannerImage} // Görsel URL'si
             title={currentPost.title} // Başlık
             content={currentPost.content} // İçerik
+            id={currentPost._id}
           />
         )}
       </div>

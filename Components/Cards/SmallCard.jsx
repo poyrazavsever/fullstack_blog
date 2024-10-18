@@ -2,9 +2,9 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw'; // HTML desteği için
 
-const SmallCard = ({ title, content }) => {
+const SmallCard = ({ title, content, id }) => {
   return (
-    <a href={`/blog/1`} className="w-full min-w-96">
+    <a href={`/blog/${id}`} className="w-full min-w-96">
       <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg '>
         <div className='py-4 px-6 flex flex-col items-start gap-3 relative group'>
           <div className='flex flex-col items-start gap-2'>
