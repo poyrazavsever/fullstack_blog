@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import postsReducer from "../features/post/postSlice"
 
 const store = configureStore({
   reducer: {
-    // Buraya slice'larını ekleyeceğiz
+    posts: postsReducer,
   },
 });
 
