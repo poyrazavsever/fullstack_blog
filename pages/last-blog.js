@@ -1,15 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LargeCard from "@/Components/Cards/LargeCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getLastPost } from "@/features/post/thunks/getLastPost";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw"; // HTML desteği için
 
 function LastBlog() {
   const dispatch = useDispatch();
   const { currentPost, status, error } = useSelector((state) => state.posts);
+  
+  // İstemci tarafında render edildiğini anlamak için bir state ekleyelim
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // İstemci tarafında çalıştığını belirtiyoruz
+    setIsClient(true);
     dispatch(getLastPost());
   }, [dispatch]);
+
+  if (!isClient) {
+    // İstemci tarafında henüz render edilmediği için sunucu tarafında boş bir render döndür
+    return null; 
+  }
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -43,7 +55,12 @@ function LastBlog() {
             Why Did I Write
           </h6>
           <p className="text-neutral-400 leading-relaxed">
-            {currentPost ? currentPost.reason : "Reason not available."}
+            <ReactMarkdown
+              rehypePlugins={[rehypeRaw]}
+              className="react-markdown"
+            >
+              {currentPost ? currentPost.reason : "Reason not available."}
+            </ReactMarkdown>
           </p>
         </div>
 
@@ -53,7 +70,12 @@ function LastBlog() {
             Resources
           </h6>
           <p className="text-neutral-400 leading-relaxed">
-            {currentPost ? currentPost.source : "Source not available."}
+            <ReactMarkdown
+              rehypePlugins={[rehypeRaw]}
+              className="react-markdown"
+            >
+              {currentPost ? currentPost.source : "Source not available."}
+            </ReactMarkdown>
           </p>
         </div>
       </div>
