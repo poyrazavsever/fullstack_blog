@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
-import toast from 'react-hot-toast'; 
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from '@/features/post/thunks/createPost';
 import { selectCategories } from '@/features/category/categorySlice';
@@ -51,18 +51,28 @@ const CreatePost = () => {
         postData.append('reason', reason);
         postData.append('source', source);
 
+        // Kategorileri dizi olarak ekliyoruz
         categories.forEach(category => {
             postData.append('categories[]', category);
         });
 
         try {
-            await dispatch(createPost(postData)).unwrap(); 
-            toast.success('Post created successfully!'); 
+            await dispatch(createPost(postData)).unwrap();
+            toast.success('Post created successfully!');
+
+            // Formu temizle
+            setTitle('');
+            setBannerImage(null);
+            setContent('');
+            setReason('');
+            setSource('');
+            setCategories([]); // Seçilen kategorileri sıfırla
         } catch (error) {
             console.error(error);
-            toast.error('Failed to create post.'); 
+            toast.error('Failed to create post.');
         }
     };
+
 
     return (
         <div className="container mx-auto p-4">
@@ -71,7 +81,7 @@ const CreatePost = () => {
                 <div className="relative w-full h-64 bg-gray-200 dark:bg-neutral-700 rounded-lg flex items-center justify-center">
                     {bannerImage ? (
                         <img
-                            src={URL.createObjectURL(bannerImage)} 
+                            src={URL.createObjectURL(bannerImage)}
                             alt="Banner Preview"
                             className="w-full h-full object-cover rounded-lg"
                         />
@@ -111,10 +121,10 @@ const CreatePost = () => {
                 {/* Categories */}
                 <div>
                     <label className="block text-lg font-medium dark:text-neutral-300">Categories</label>
-                    <select 
-                        multiple 
-                        value={categories} 
-                        onChange={handleCategoryChange} 
+                    <select
+                        multiple
+                        value={categories}
+                        onChange={handleCategoryChange}
                         className="mt-2 w-full bg-white dark:bg-neutral-700 dark:text-white border border-gray-300 rounded p-2"
                     >
                         {categoriesFromStore.map(category => (
