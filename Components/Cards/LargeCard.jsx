@@ -1,12 +1,12 @@
 import React from 'react';
 
-const LargeCard = () => {
+const LargeCard = ({imageHref, title, content }) => {
   return (
     <a href='/blog/1' className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 backdrop-blur-lg shadow-lg">
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
-          src="https://via.placeholder.com/1920x400" // Kendi resim dosya yolunuzu buraya ekleyin
+          src={imageHref} // Kendi resim dosya yolunuzu buraya ekleyin
           alt="Card Visual"
           className="object-cover w-full h-full"
         />
@@ -14,12 +14,12 @@ const LargeCard = () => {
 
       {/* Başlık */}
       <h3 className="mt-4 text-lg font-bold text-white">
-        Webpack vs Vite: Comparison of Build Tools for Frontend Projects
+        {title}
       </h3>
 
       {/* İçerik */}
       <p className="mt-2 text-sm text-neutral-900 dark:text-neutral-300">
-        The world of frontend development is very dynamic and new tools are emerging every day. As projects grow, compiling and delivering our code becomes more complex...
+        {content}
       </p>
 
       {/* Buton */}
