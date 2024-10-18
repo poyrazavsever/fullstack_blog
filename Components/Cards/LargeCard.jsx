@@ -2,7 +2,7 @@ import React from 'react';
 
 const LargeCard = ({imageHref, title, content }) => {
   return (
-    <a href='/blog/1' className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 backdrop-blur-lg shadow-lg">
+    <a href='/blog/1' className="relative p-4 rounded-lg border bg-neutral-200 border-neutral-300 dark:bg-neutral-800 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 backdrop-blur-lg shadow-lg w-full">
       {/* Resim */}
       <div className="w-full h-40 overflow-hidden rounded-lg">
         <img
