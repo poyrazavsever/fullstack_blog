@@ -55,7 +55,9 @@ const postsSlice = createSlice({
       .addCase(findPostById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+        console.error("Error finding post by ID: ", action.error.message);
       });
+      
 
     // updatePost
     builder

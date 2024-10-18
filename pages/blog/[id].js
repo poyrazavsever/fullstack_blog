@@ -1,55 +1,90 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { findPostById } from "@/features/post/thunks/findPostById";
 import CommentsModal from "@/Components/CommentsModal";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw"; // HTML desteği için
 
 const BlogDetail = () => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false); // Yorum modalı durumu
+  const router = useRouter();
+  const { id } = router.query; // URL'den id'yi alıyoruz
+  const dispatch = useDispatch();
+
+  const [isLiked, setIsLiked] = React.useState(false);
+  const [isCommentsModalOpen, setIsCommentsModalOpen] = React.useState(false);
+
+  const { currentPost, status, error } = useSelector((state) => state.posts); // Redux'tan post state'ini alıyoruz
+
+  useEffect(() => {
+    if (id) {
+      // Eğer id varsa, Redux thunk'ını çağırarak post'u getiriyoruz
+      dispatch(findPostById(id));
+    }
+  }, [dispatch, id]);
 
   const handleLikeClick = () => {
-    // Kalbe tıklama işlemi
     setIsLiked((prev) => !prev);
-
-    // Toast mesajı göster
-    if (!isLiked) {
-      toast.success("Gönderiyi beğendiniz!");
-    } else {
-      toast.error("Gönderi beğenmekten vazgeçtiniz!");
-    }
+    toast[isLiked ? "error" : "success"](
+      isLiked ? "Gönderi beğenmekten vazgeçtiniz!" : "Gönderiyi beğendiniz!"
+    );
   };
+
+  // Post durumu yüklendiğinde gösterilecek içerik
+  if (status === "loading") {
+    return <div>Yükleniyor...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto w-full text-center text-5xl font-semibold text-white mt-16">
+        Hata: {error}
+      </div>
+    );
+  }
+
+  if (!currentPost) {
+    return (
+      <div className="container mx-auto w-full text-center text-5xl font-semibold text-white mt-16">
+        Post bulunamadı!
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto mt-8">
       <div className="flex flex-col md:flex-row items-start gap-8">
         <img
-          src="/Images/photobg.png"
+          src={currentPost.imageHref || "/Images/photobg.png"}
           alt="blogPostBanner"
           className="w-full md:w-1/2 rounded-lg shadow"
         />
 
         <div className="flex flex-col gap-3">
           <h1 className="text-lg md:text-xl font-medium text-neutral-900 dark:text-neutral-200">
-            Webpack vs Vite: Comparison of Build Tools for Frontend Projects
+            {currentPost.title}
           </h1>
 
           <p className="text-neutral-500">
-            Unlearning should also be part of the process
+            {currentPost.description || "Açıklama bulunmuyor."}
           </p>
 
           <div className="flex items-center gap-2">
-            <span className="text-sm p-2 text-neutral-300 font-medium bg-neutral-950 bg-opacity-30 border border-neutral-800 rounded-full">
-              Technology
-            </span>
-
-            <span className="text-sm p-2 text-neutral-300 font-medium bg-neutral-950 bg-opacity-30 border border-neutral-800 rounded-full">
-              Frontend
-            </span>
+            {currentPost.tags?.map((tag, index) => (
+              <span
+                key={index}
+                className="text-sm p-2 text-neutral-300 font-medium bg-neutral-950 bg-opacity-30 border border-neutral-800 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
           <div className="flex items-center gap-6">
             <span className="font-medium text-sm text-neutral-800 dark:text-neutral-300">
-              11/05/2022
+              {new Date(currentPost.createdAt).toLocaleDateString()}
             </span>
 
             <motion.button
@@ -76,7 +111,10 @@ const BlogDetail = () => {
               <span className="text-neutral-300">29</span>
             </motion.button>
 
-            <button className="flex items-center gap-2" onClick={() => setIsCommentsModalOpen(true)}>
+            <button
+              className="flex items-center gap-2"
+              onClick={() => setIsCommentsModalOpen(true)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -120,23 +158,17 @@ const BlogDetail = () => {
       </div>
 
       <div className="pt-8 text-neutral-200">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla cum,
-          aliquid eius, perferendis unde alias sit quisquam nemo ipsum eos
-          placeat nihil in perspiciatis facilis aperiam sapiente? Tempore
-          recusandae doloremque quibusdam explicabo soluta repudiandae sunt
-          maiores, nam praesentium qui eos optio a error quae vel cumque numquam
-          sint et eaque aliquid repellat. Aut saepe tempora atque dignissimos
-          corporis maiores assumenda, quam velit dicta non fugit impedit vitae
-          voluptatum fugiat itaque reiciendis qui, eveniet eum nesciunt veniam
-          eos temporibus voluptates nostrum. Nostrum distinctio id nobis harum,
-          saepe voluptatibus nemo ipsam accusamus aliquam magnam asperiores
-          debitis sit quidem molestias odio cupiditate maiores.
-        </p>
+        <ReactMarkdown
+          rehypePlugins={[rehypeRaw]}
+          className="react-markdown"
+        >
+          {currentPost.content}
+        </ReactMarkdown>
       </div>
 
-      {/* Yorum modalını açma durumu */}
-      {isCommentsModalOpen && <CommentsModal onClose={() => setIsCommentsModalOpen(false)} />}
+      {isCommentsModalOpen && (
+        <CommentsModal onClose={() => setIsCommentsModalOpen(false)} />
+      )}
     </div>
   );
 };

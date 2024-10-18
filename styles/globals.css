@@ -15,3 +15,27 @@ body::-webkit-scrollbar {
     background-color: darkgrey;
     outline: 1px solid slategrey;
   }
+
+
+
+/* Tailwind'in default reset ayarlarını geçersiz kıl */
+.react-markdown {
+  all: unset; /* Tüm stilleri kaldır */
+  display: block; /* Normal blok yapılarına döndür */
+}
+
+/* Markdown yapısı için özel stil */
+.react-markdown h1,
+.react-markdown h2,
+.react-markdown h3,
+.react-markdown h4,
+.react-markdown p,
+.react-markdown ul,
+.react-markdown li {
+  all: initial;
+  margin-bottom: 1rem; /* Spacing for elements */
+  color: inherit; /* Metin rengini miras al */
+  font-size: inherit; /* Metin boyutunu miras al */
+  line-height: 1.6;
+  font-family:sans-serif;
+}
