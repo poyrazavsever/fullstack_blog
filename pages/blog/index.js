@@ -1,34 +1,30 @@
 import SmallCard from "@/Components/Cards/SmallCard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "@/features/post/postSlice";
 import { motion } from "framer-motion";
 
 const Blog = () => {
   const categoryBtn =
     "text-neutral-800 dark:text-neutral-200 font-semibold uppercase transition-all duration-300 ease-in-out hover:text-neutral-600 dark:hover:text-neutral-400 hover:underline hover:underline-offset-4 hover:scale-105";
 
-  // Dummy blog data
-  const blogPosts = [
-    { id: 1, title: "Post 1" },
-    { id: 2, title: "Post 2" },
-    { id: 3, title: "Post 3" },
-    { id: 4, title: "Post 4" },
-    { id: 5, title: "Post 5" },
-    { id: 6, title: "Post 6" },
-    { id: 7, title: "Post 7" },
-    { id: 8, title: "Post 8" },
-    // Daha fazla veri ekleyebilirsin
-  ];
+  const dispatch = useDispatch();
+  const { posts, status, error } = useSelector((state) => state.posts);
 
-  const postsPerPage = 4; // Her sayfadaki blog kart sayısı
-  const [currentPage, setCurrentPage] = useState(1); // Mevcut sayfa state
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [status, dispatch]);
 
-  // Blog kartlarını sayfalara bölmek için slice kullanıyoruz
+  const postsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = blogPosts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  // Sayfa değiştirme işlevleri
-  const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -49,19 +45,24 @@ const Blog = () => {
           View My Blog Posts
         </h1>
 
-        <motion.div
-          className="flex flex-col items-start gap-4"
-          key={currentPage} // Her sayfa için unique key veriyoruz
-          initial={{ opacity: 0, x: 100 }} // Başlangıç animasyonu
-          animate={{ opacity: 1, x: 0 }} // Hedef animasyon
-          exit={{ opacity: 0, x: -100 }} // Sayfa çıkışı animasyonu
-          transition={{ duration: 0.5 }} // Animasyon süresi
-        >
-          {/* O anki sayfadaki postları render ediyoruz */}
-          {currentPosts.map((post) => (
-            <SmallCard key={post.id} title={post.title} />
-          ))}
-        </motion.div>
+        {status === 'loading' && <p>Loading...</p>}
+        {status === 'failed' && <p>Error: {error}</p>}
+
+        {status === 'succeeded' && (
+          <motion.div
+            className="flex flex-col items-start gap-4"
+            key={currentPage} // Her sayfa için unique key veriyoruz
+            initial={{ opacity: 0, x: 100 }} // Başlangıç animasyonu
+            animate={{ opacity: 1, x: 0 }} // Hedef animasyon
+            exit={{ opacity: 0, x: -100 }} // Sayfa çıkışı animasyonu
+            transition={{ duration: 0.5 }} // Animasyon süresi
+          >
+            {/* O anki sayfadaki postları render ediyoruz */}
+            {currentPosts.map((post) => (
+              <SmallCard key={post.id} title={post.title} />
+            ))}
+          </motion.div>
+        )}
 
         {/* Sayfa değiştirme butonları */}
         <div className="flex justify-between w-full mt-4">
