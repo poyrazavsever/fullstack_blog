@@ -11,11 +11,11 @@ function LastBlog() {
     dispatch(getLastPost());
   }, [dispatch]);
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return <p>Loading...</p>;
   }
 
-  if (status === 'failed') {
+  if (status === "failed") {
     return <p>Error: {error}</p>;
   }
 
@@ -26,13 +26,15 @@ function LastBlog() {
           My Last Blog Post
         </h1>
 
-        {currentPost && (
-          <LargeCard
-            imageHref={currentPost.bannerImage} // Görsel URL'si
-            title={currentPost.title} // Başlık
-            content={currentPost.content} // İçerik
-          />
-        )}
+        <div className="w-full">
+          {currentPost && (
+            <LargeCard
+              imageHref={currentPost.bannerImage} // Görsel URL'si
+              title={currentPost.title} // Başlık
+              content={currentPost.content} // İçerik
+            />
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 mt-12">
