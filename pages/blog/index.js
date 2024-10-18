@@ -17,12 +17,15 @@ const Blog = () => {
     }
   }, [status, dispatch]);
 
-  const postsPerPage = 4;
+  const postsPerPage = 3;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Posts dizisini tersine çeviriyoruz
+  const reversedPosts = [...posts].reverse();
+  const currentPosts = reversedPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   const totalPages = Math.ceil(posts.length / postsPerPage);
 
@@ -59,7 +62,7 @@ const Blog = () => {
           >
             {/* O anki sayfadaki postları render ediyoruz */}
             {currentPosts.map((post) => (
-              <SmallCard key={post.id} title={post.title} />
+              <SmallCard key={post._id} title={post.title} content={post.content} />
             ))}
           </motion.div>
         )}

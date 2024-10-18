@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SmallCard = ({title}) => {
+const SmallCard = ({title, content}) => {
     return (
-        <a href={`/blog/1`}>
+        <a href={`/blog/1`} className="w-96">
 
             {/* Framer Motion'ı kullanarak hover animasyonu */}
             <div className='group relative border border-neutral-800 bg-opacity-20 bg-neutral-900 rounded-lg '>
@@ -21,7 +21,7 @@ const SmallCard = ({title}) => {
                         </div>
 
                         <p className='text-xs md:text-base text-neutral-500 line-clamp-1 md:line-clamp-2'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit temporibus quibusdam debitis nulla sequi magnam voluptate ut earum iusto odio mollitia animi in dolorem facere exercitationem, consequatur eum unde. Accusamus at consequuntur voluptate, optio iste voluptates praesentium? Temporibus sint numquam consequatur adipisci at quia rem laborum repellendus reiciendis nam quos quod, voluptatum voluptates quasi, expedita, sunt nulla provident. Sunt numquam harum ducimus ipsa consequatur eius cum doloremque libero! Voluptates, iure. Beatae sunt optio consequuntur harum, dolore magnam temporibus enim blanditiis dolorum non aliquam voluptatum cum eaque? Voluptate quia esse at mollitia, inventore dicta illum unde ducimus cum ipsa, repellat quas.
+                            {content}
                         </p>
                     </div>
 
