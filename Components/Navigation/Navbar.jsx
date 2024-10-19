@@ -66,10 +66,6 @@ const Navbar = ({ openModal }) => {
           </button>
         </div>
 
-        {/* Sağ: Dil ve Tema Düşürme Menüsü */}
-        <div className="relative flex space-x-4 items-center">
-          {/* ... (dil ve tema düşürme menüsü kodu burada kalacak) ... */}
-        </div>
 
         {/* Küçük ekranlar için menü ikonu */}
         <div className="md:hidden">
