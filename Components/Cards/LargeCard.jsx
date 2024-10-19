@@ -20,7 +20,7 @@ const LargeCard = ({ imageHref, title, content, id }) => {
       </h3>
 
       {/* İçerik - Markdown ve HTML desteği */}
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} className="mt-2 text-sm text-neutral-900 dark:text-neutral-300">
+      <ReactMarkdown rehypePlugins={[rehypeRaw]} className="mt-2 text-sm font-light text-neutral-900 dark:text-neutral-300 line-clamp-2">
         {content}
       </ReactMarkdown>
 
