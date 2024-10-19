@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { toast } from "react-hot-toast";
 
 // Sekme içerikleri için dummy bileşenler
 import CreatePost from "@/Components/Admin/CreatePost";
