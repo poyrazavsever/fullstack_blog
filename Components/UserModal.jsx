@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import { loginThunk } from '@/features/auth/thunks/loginThunk';
+import { registerThunk } from '@/features/auth/thunks/registerThunk';
 
 const UserModal = ({ isOpen, onClose }) => {
-  const [isLogin, setIsLogin] = useState(true); // Form türü
-  const [formData, setFormData] = useState({ // Form verileri
+  const dispatch = useDispatch();
+  const { isLoading, error, message, isAuthenticated } = useSelector((state) => state.auth);
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
     name: '',
+    lastname: '',
     email: '',
     password: ''
   });
+
+  // Başarı durumu olduğunda mesaj göster ve modal'ı kapat
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success(message || 'Giriş başarılı!'); // Başarı mesajı
+       // Modal'ı kapat
+    }
+  }, [isAuthenticated, message, onClose]);
 
   // Form alanlarını güncelleme
   const handleChange = (e) => {
@@ -18,10 +33,12 @@ const UserModal = ({ isOpen, onClose }) => {
   // Form gönderimi
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (isLogin) {
-      console.log('Giriş Yapılıyor:', formData.email, formData.password);
+      dispatch(loginThunk({ email: formData.email, password: formData.password }));
+      onClose();
     } else {
-      console.log('Kayıt Oluyor:', formData.name, formData.email, formData.password);
+      dispatch(registerThunk({ name: formData.name, email: formData.email, password: formData.password }));
     }
   };
 
@@ -63,28 +80,39 @@ const UserModal = ({ isOpen, onClose }) => {
                 className="p-2 text-xs text-red-500 rounded-full hover:text-red-600 transition"
                 onClick={onClose}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m15.75 15l-6-6m0 6l6-6m7 3c0-5.523-4.477-10-10-10s-10 4.477-10 10s4.477 10 10 10s10-4.477 10-10" color="currentColor" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m15.75 15l-6-6m0 6l6-6m7 3c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10" /></svg>
               </button>
             </div>
 
             <motion.div
-              key={isLogin ? 'login' : 'register'} // Geçiş anahtarı
+              key={isLogin ? 'login' : 'register'}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
               <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                {!isLogin && ( // Kayıt formu
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="İsim"
-                    required
-                    className="p-2 bg-neutral-900 bg-opacity-30 border border-neutral-700 text-neutral-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  />
+                {!isLogin && (
+                  <>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="İsim"
+                      required
+                      className="p-2 bg-neutral-900 bg-opacity-30 border border-neutral-700 text-neutral-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                    <input
+                      type="text"
+                      name="lastname"
+                      value={formData.lastname}
+                      onChange={handleChange}
+                      placeholder="Soyisim"
+                      required
+                      className="p-2 bg-neutral-900 bg-opacity-30 border border-neutral-700 text-neutral-100 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    />
+                  </>
                 )}
                 <input
                   type="email"
@@ -108,9 +136,11 @@ const UserModal = ({ isOpen, onClose }) => {
                   type="submit"
                   className="bg-orange-500 text-white p-2 rounded hover:bg-orange-600 transition"
                 >
-                  {isLogin ? 'Giriş Yap' : 'Kayıt Ol'}
+                  {isLogin ? (isLoading ? 'Giriş Yapılıyor...' : 'Giriş Yap') : (isLoading ? 'Kayıt Olunuyor...' : 'Kayıt Ol')}
                 </button>
               </form>
+
+              {error && <p className="text-red-500 mt-2">{error}</p>}
             </motion.div>
           </motion.div>
         </motion.div>
