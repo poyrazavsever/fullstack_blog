@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommentsByPostThunk } from '@/features/comments/thunks/fetchCommentsByPostThunk';
 import { createCommentThunk } from '@/features/comments/thunks/createCommentThunk';
 import { toast } from 'react-hot-toast';
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw"; // HTML desteği için
 
 // React Quill bileşenini dinamik olarak yükle
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
@@ -72,9 +74,9 @@ const CommentsModal = ({ postId, onClose }) => {
 
     return (
         <motion.div
-            className="absolute right-0 top-0 h-full w-80 p-4 overflow-y-auto 
-            bg-white/70 dark:bg-black/70 text-black dark:text-white 
-            backdrop-blur-md shadow-lg"
+            className="fixed right-0 top-0 h-full w-80 p-4 overflow-y-auto 
+    bg-white/70 dark:bg-black/70 text-black dark:text-white 
+    backdrop-blur-md shadow-lg scrollbar-thin scrollbar-track-neutral-400 scrollbar-thumb-neutral-900"
             initial={{ opacity: 0, x: 300 }} // Animasyon başlangıcı
             animate={{ opacity: 1, x: 0 }} // Animasyon bitişi
             exit={{ opacity: 0, x: 300 }} // Animasyon çıkışı
@@ -83,7 +85,9 @@ const CommentsModal = ({ postId, onClose }) => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Comments</h2>
                 <button onClick={onClose} aria-label="Close modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 5L5 19M5 5l14 14" color="currentColor" />
+                    </svg>
                 </button>
             </div>
 
@@ -113,15 +117,25 @@ const CommentsModal = ({ postId, onClose }) => {
             </div>
 
             {/* Yorumları listeleme */}
-            <div className="space-y-4">
+            <div className="flex flex-col items-start gap-4 min-w-full">
                 {comments.map((comment) => (
-                    <div key={comment._id} className="p-2 border bg-neutral-100 border-neutral-200 rounded dark:bg-neutral-800 dark:border-neutral-800 bg-opacity-30 dark:bg-opacity-30">
-                        <div dangerouslySetInnerHTML={{ __html: comment.content }} className="mb-1"></div>
-                        <div className="text-sm text-neutral-500 dark:text-neutral-400">- {comment.user.name}</div>
+                    <div
+                        key={comment._id}
+                        className="w-full break-words p-2 border bg-neutral-100 border-neutral-200 rounded dark:bg-neutral-800 dark:border-neutral-800 bg-opacity-30 dark:bg-opacity-30 flex flex-col gap-3"
+                    >
+                        <ReactMarkdown
+                            rehypePlugins={[rehypeRaw]}
+                        >
+                            {comment.content}
+                        </ReactMarkdown>
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                            - {comment.user.name}
+                        </div>
                     </div>
                 ))}
             </div>
         </motion.div>
+
     );
 };
 
