@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Sekme içerikleri için dummy bileşenler
 import CreatePost from "@/Components/Admin/CreatePost";
 import CreateCategory from "@/Components/Admin/CreateCategory";
+import Users from "@/Components/Admin/Users";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("Create Post"); // Varsayılan olarak "Create Post" sekmesi
@@ -13,6 +14,8 @@ const Admin = () => {
         return <CreatePost />;
       case "Create Category":
         return <CreateCategory />;
+      case "Users":
+        return <Users />;
       default:
         return null;
     }
@@ -25,7 +28,9 @@ const Admin = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-center text-neutral-800 dark:text-neutral-100">Admin Panel</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center text-neutral-800 dark:text-neutral-100">
+        Admin Panel
+      </h1>
 
       {/* Tab Menüsü */}
       <div className="flex justify-center gap-4 border-b mb-8">
@@ -44,6 +49,14 @@ const Admin = () => {
           onClick={() => setActiveTab("Create Category")}
         >
           Create Category
+        </div>
+        <div
+          className={`${tabClass} ${
+            activeTab === "Users" ? activeTabClass : ""
+          }`}
+          onClick={() => setActiveTab("Users")}
+        >
+          Users
         </div>
       </div>
 
