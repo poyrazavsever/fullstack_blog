@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCommentThunk, fetchCommentsByPostThunk } from './thunks';
+import { createCommentThunk } from './thunks/createCommentThunk';
+import { fetchCommentsByPostThunk } from './thunks/fetchCommentsByPostThunk';
 
 const initialState = {
   comments: [],
