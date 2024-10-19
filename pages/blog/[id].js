@@ -167,7 +167,7 @@ const BlogDetail = () => {
       </div>
 
       {isCommentsModalOpen && (
-        <CommentsModal onClose={() => setIsCommentsModalOpen(false)} />
+        <CommentsModal onClose={() => setIsCommentsModalOpen(false)} postId={id}/>
       )}
     </div>
   );
