@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 // Sekme içerikleri için dummy bileşenler
 import CreatePost from "@/Components/Admin/CreatePost";
@@ -6,6 +9,12 @@ import CreateCategory from "@/Components/Admin/CreateCategory";
 import Users from "@/Components/Admin/Users";
 
 const Admin = () => {
+  const router = useRouter();
+
+  // Kullanıcı bilgilerini Redux'tan al
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.user?.isAdmin); // Kullanıcı bilgilerinden isAdmin'i al
+
   const [activeTab, setActiveTab] = useState("Create Post"); // Varsayılan olarak "Create Post" sekmesi
 
   const renderContent = () => {
@@ -26,7 +35,9 @@ const Admin = () => {
   const activeTabClass =
     "border-b-4 border-orange-500 text-orange-500 dark:text-orange-400";
 
-  return (
+  return !isAuthenticated || !isAdmin ? (
+    <h1 className="container mx-auto w-full text-center text-5xl font-semibold mt-24 text-neutral-200">Bu sayfaya erişim izniniz yok.</h1>
+  ) : (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-center text-neutral-800 dark:text-neutral-100">
         Admin Panel
