@@ -18,7 +18,7 @@ const UserModal = ({ isOpen, onClose }) => {
 
   // Başarı durumu olduğunda mesaj göster ve modal'ı kapat
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && isOpen) {
       toast.success(message || 'Giriş başarılı!'); // Başarı mesajı
        // Modal'ı kapat
     }

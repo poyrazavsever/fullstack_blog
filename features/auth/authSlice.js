@@ -9,7 +9,7 @@ const initialState = {
   isAuthenticated: false,
   error: null,
   message: null,
-  success: false, // Yeni ekleme
+  success: false,
 };
 
 const authSlice = createSlice({
@@ -20,7 +20,11 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       localStorage.removeItem('token');
-      state.success = false; // Logout sonrası success durumunu sıfırlayın
+      state.success = false;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.isAuthenticated = true;
     },
   },
   extraReducers: (builder) => {
@@ -30,44 +34,43 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         state.message = null;
-        state.success = false; // Loading durumunda success sıfırlanır
+        state.success = false;
       })
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload;
         state.message = action.payload.message;
-        state.success = true; // Başarılı girişte success durumu
+        state.success = true;
+        // Token'ı localStorage'a kaydet
+        localStorage.setItem('token', action.payload.token);
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.error = action.payload;
-        state.success = false; // Hata durumunda success sıfırlanır
-      });
-
-    // Register işlemi
-    builder
+        state.success = false;
+      })
+      // Register işlemi
       .addCase(registerThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
         state.message = null;
-        state.success = false; // Loading durumunda success sıfırlanır
+        state.success = false;
       })
       .addCase(registerThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.message = action.payload.message;
         state.user = action.payload.data;
-        state.success = true; // Başarılı kayıt durumunda success durumu
+        state.success = true;
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        state.success = false; // Hata durumunda success sıfırlanır
+        state.success = false;
       });
   },
 });
 
-
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;

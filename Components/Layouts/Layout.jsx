@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from '../Navigation/Navbar'
 import Footer from '../Footer/Footer'
 import { Toaster } from 'react-hot-toast'
 import UserModal from '../UserModal'
+import { useDispatch } from "react-redux";
+import { setUser } from "@/features/auth/authSlice";
+import {jwtDecode} from 'jwt-decode';
 
 const Layout = ({ children }) => {
 
@@ -17,6 +20,22 @@ const Layout = ({ children }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const user = jwtDecode(token); // Token'ı decode et
+        dispatch(setUser(user)); // Kullanıcı bilgilerini Redux'a gönder
+      } catch (error) {
+        console.error("Token geçersiz:", error);
+      }
+    }
+  }, [dispatch]);
+
+
 
   return (
     <>
