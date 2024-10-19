@@ -5,37 +5,77 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { findPostById } from "@/features/post/thunks/findPostById";
 import { fetchCommentsByPostThunk } from "@/features/comments/thunks/fetchCommentsByPostThunk"; // Yorum thunk'ı
+import { likePost } from "@/features/post/thunks/likePost"; // Like thunk'ı
 import CommentsModal from "@/Components/CommentsModal";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // HTML desteği için
 
 const BlogDetail = () => {
   const router = useRouter();
-  const { id } = router.query; // URL'den id'yi alıyoruz
+  const { id } = router.query;
   const dispatch = useDispatch();
 
-  const [isLiked, setIsLiked] = React.useState(false);
   const [isCommentsModalOpen, setIsCommentsModalOpen] = React.useState(false);
+  const [isLiked, setIsLiked] = React.useState(false); // Beğenme durumu için state
 
-  const { currentPost, status, error } = useSelector((state) => state.posts); // Redux'tan post state'ini alıyoruz
-  const { comments } = useSelector((state) => state.comments); // Yorumları almak için comments state'i
+  const { currentPost, status, error } = useSelector((state) => state.posts);
+  const { comments } = useSelector((state) => state.comments);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (id) {
-      // Eğer id varsa, Redux thunk'ını çağırarak post'u getiriyoruz
       dispatch(findPostById(id));
-      dispatch(fetchCommentsByPostThunk(id)); // Yorumları almak için thunk'ı çağırıyoruz
+      dispatch(fetchCommentsByPostThunk(id));
     }
   }, [dispatch, id]);
 
-  const handleLikeClick = () => {
-    setIsLiked((prev) => !prev);
-    toast[isLiked ? "error" : "success"](
-      isLiked ? "Gönderi beğenmekten vazgeçtiniz!" : "Gönderiyi beğendiniz!"
-    );
+  useEffect(() => {
+    // Beğenme durumu, currentPost likes içinde user varsa true olacak
+    if (user) {
+      setIsLiked(currentPost?.likes.includes(user.sub));
+    }
+  }, [currentPost?.likes, user]);
+
+  const handleLikeClick = async () => {
+    if (!user) {
+      toast.error("Beğenmek için önce giriş yapmalısınız!");
+      return;
+    }
+
+    try {
+      // Beğeni durumu güncelleniyor
+      if (isLiked) {
+        await dispatch(
+          likePost({
+            userId: user.sub,
+            postId: currentPost._id,
+            action: "unlike",
+          })
+        ); // Unlikelamak için bir action ekle
+        toast.error("Gönderiyi beğenmekten vazgeçtiniz!");
+        // Beğeni sayısını güncelle
+        setIsLiked(false);
+      } else {
+        await dispatch(likePost({ userId: user.sub, postId: currentPost._id })); // Like thunk'ı çağır
+        toast.success("Gönderiyi beğendiniz!");
+        // Beğeni sayısını güncelle
+        setIsLiked(true);
+      }
+
+      // Beğeni sayısını güncelle
+      const updatedLikes = isLiked
+        ? currentPost.likes.filter((id) => id !== user.sub) // Kullanıcıyı beğenilerden çıkar
+        : [...currentPost.likes, user.sub]; // Kullanıcıyı beğenilere ekle
+
+      dispatch({
+        type: "UPDATE_CURRENT_POST_LIKES", // Burada uygun bir action type kullanmalısın
+        payload: updatedLikes,
+      });
+    } catch (error) {
+      toast.error("Bir hata oluştu!"); // Hata durumunda bir mesaj göster
+    }
   };
 
-  // Post durumu yüklendiğinde gösterilecek içerik
   if (status === "loading") {
     return <div>Yükleniyor...</div>;
   }
@@ -96,7 +136,7 @@ const BlogDetail = () => {
             <motion.button
               onClick={handleLikeClick}
               className="flex items-center gap-2"
-              whileTap={{ scale: 1.2 }} // Tıklandığında büyütme efekti
+              whileTap={{ scale: 1.2 }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +146,7 @@ const BlogDetail = () => {
               >
                 <path
                   fill="none"
-                  stroke={isLiked ? "#fa9141" : "#ffffff"}
+                  stroke={isLiked ? "#fa9141" : "#ffffff"} // Kalp rengi
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="1.5"
@@ -114,7 +154,9 @@ const BlogDetail = () => {
                   color="#ffffff"
                 />
               </svg>
-              <span className="text-neutral-300">29</span>
+              <span className="text-neutral-300">
+                {currentPost.likes.length}
+              </span>
             </motion.button>
 
             <button
@@ -137,7 +179,7 @@ const BlogDetail = () => {
                   color="#ffffff"
                 />
               </svg>
-              <span className="text-neutral-300">{comments.length}</span> {/* Yorum sayısını burada gösteriyoruz */}
+              <span className="text-neutral-300">{comments.length}</span>
             </button>
 
             <button className="flex items-center gap-2">
@@ -170,7 +212,10 @@ const BlogDetail = () => {
       </div>
 
       {isCommentsModalOpen && (
-        <CommentsModal onClose={() => setIsCommentsModalOpen(false)} postId={id}/>
+        <CommentsModal
+          onClose={() => setIsCommentsModalOpen(false)}
+          postId={id}
+        />
       )}
     </div>
   );
