@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { findPostById } from "@/features/post/thunks/findPostById";
+import { fetchCommentsByPostThunk } from "@/features/comments/thunks/fetchCommentsByPostThunk"; // Yorum thunk'ı
 import CommentsModal from "@/Components/CommentsModal";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw"; // HTML desteği için
@@ -17,11 +18,13 @@ const BlogDetail = () => {
   const [isCommentsModalOpen, setIsCommentsModalOpen] = React.useState(false);
 
   const { currentPost, status, error } = useSelector((state) => state.posts); // Redux'tan post state'ini alıyoruz
+  const { comments } = useSelector((state) => state.comments); // Yorumları almak için comments state'i
 
   useEffect(() => {
     if (id) {
       // Eğer id varsa, Redux thunk'ını çağırarak post'u getiriyoruz
       dispatch(findPostById(id));
+      dispatch(fetchCommentsByPostThunk(id)); // Yorumları almak için thunk'ı çağırıyoruz
     }
   }, [dispatch, id]);
 
@@ -134,7 +137,7 @@ const BlogDetail = () => {
                   color="#ffffff"
                 />
               </svg>
-              <span className="text-neutral-300">12</span>
+              <span className="text-neutral-300">{comments.length}</span> {/* Yorum sayısını burada gösteriyoruz */}
             </button>
 
             <button className="flex items-center gap-2">
